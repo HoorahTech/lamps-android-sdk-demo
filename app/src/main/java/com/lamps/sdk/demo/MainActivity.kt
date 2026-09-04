@@ -10,11 +10,14 @@ import com.lamps.sdk.LampsSdk
 
 class MainActivity : Activity() {
 
+    private lateinit var statusText: TextView
+    private val onSdkStatusChanged = { refreshStatus() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        findViewById<TextView>(R.id.sdkStatusText).text = buildStatusText()
+        statusText = findViewById(R.id.sdkStatusText)
         SdkToolsBinder.bind(this, findViewById(R.id.openSdkToolsButton))
 
         findViewById<Button>(R.id.navigateGameCenterButton).setOnClickListener {
@@ -31,14 +34,36 @@ class MainActivity : Activity() {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        DemoApplication.addSdkStatusListener(onSdkStatusChanged)
+    }
+
+    override fun onStop() {
+        DemoApplication.removeSdkStatusListener(onSdkStatusChanged)
+        super.onStop()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        refreshStatus()
+    }
+
+    private fun refreshStatus() {
+        if (!::statusText.isInitialized) return
+        statusText.text = buildStatusText()
+    }
+
     private fun buildStatusText(): String {
         return buildString {
             appendLine("Lamps Android SDK Demo")
             appendLine("版本: ${LampsSdk.getSdkVersion()}")
             appendLine("appId: ${DemoApplication.DEMO_APP_ID}")
             appendLine("ready: ${LampsSdk.isSdkReady()}")
+            DemoApplication.lastStartError?.let { error ->
+                appendLine("start: fail $error")
+            }
             appendLine("渠道: 穿山甲 / 优量汇 / 汇川")
-            appendLine("依赖: Maven Central 远程 AAR")
         }
     }
 }

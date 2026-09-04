@@ -41,6 +41,8 @@ dependencies {
 
 版本在根目录 `gradle.properties` 的 `lampsVersion` 中修改。
 
+当前 Demo 默认走 **远程 Maven**。如需改成本地 AAR，注释 `io.github.hoorahtech:*`，打开 `app/build.gradle.kts` 里 `app/libs/` 的 `files()` 依赖；本地 AAR 没有 POM 传递依赖，需要同时放入 `core` 和渠道 vendor AAR。
+
 ## 初始化
 
 在隐私协议同意后调用，顺序为 `init` -> `startAsync`。`startAsync` 完成前不要使用 SDK 能力。

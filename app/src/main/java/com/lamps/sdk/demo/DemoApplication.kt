@@ -5,6 +5,7 @@ import android.util.Log
 import com.lamps.sdk.LampsSdk
 import com.lamps.sdk.config.LampsConfig
 import com.lamps.sdk.core.InitCallback
+import java.util.concurrent.CopyOnWriteArrayList
 
 class DemoApplication : Application() {
 
@@ -26,11 +27,15 @@ class DemoApplication : Application() {
 
         LampsSdk.startAsync(object : InitCallback {
             override fun success() {
+                lastStartError = null
                 Log.i(TAG, "start success, ready=${LampsSdk.isSdkReady()} version=${LampsSdk.getSdkVersion()}")
+                notifySdkStatus()
             }
 
             override fun fail(code: Int, message: String?) {
-                Log.e(TAG, "start fail code=$code message=$message")
+                lastStartError = "code=$code message=$message"
+                Log.e(TAG, "start fail $lastStartError")
+                notifySdkStatus()
             }
         })
     }
@@ -39,5 +44,24 @@ class DemoApplication : Application() {
         const val TAG = "LampsDemo"
         const val DEMO_APP_ID = "10001"
         const val DEMO_OAID = "demo-oaid-from-media"
+
+        @Volatile
+        var lastStartError: String? = null
+            private set
+
+        private val statusListeners = CopyOnWriteArrayList<() -> Unit>()
+
+        fun addSdkStatusListener(listener: () -> Unit) {
+            statusListeners.add(listener)
+            listener()
+        }
+
+        fun removeSdkStatusListener(listener: () -> Unit) {
+            statusListeners.remove(listener)
+        }
+
+        private fun notifySdkStatus() {
+            statusListeners.forEach { it() }
+        }
     }
 }

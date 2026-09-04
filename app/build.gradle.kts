@@ -42,4 +42,23 @@ dependencies {
     implementation("io.github.hoorahtech:ylh:$lampsVersion")
     implementation("io.github.hoorahtech:noah:$lampsVersion")
     debugImplementation("io.github.hoorahtech:sdk-tools:$lampsVersion")
+
+    // Local AAR. files() has no POM transitives, so also include core / vendor AARs.
+    // implementation(
+    //     files(
+    //         "libs/lamps-core-1.0.0.aar",
+    //         "libs/lamps-sdk-1.0.0.aar",
+    //         "libs/lamps-pangle-1.0.0.aar",
+    //         "libs/lamps-ylh-1.0.0.aar",
+    //         "libs/lamps-noah-1.0.0.aar",
+    //         "libs/ads-sdk-pro-7.6.1.2.aar",
+    //         "libs/noah-15.1.4002.aar",
+    //     )
+    // )
+    // debugImplementation(
+    //     files(
+    //         "libs/lamps-sdk-tools-1.0.0.aar",
+    //         "libs/ads-sdk-tools-7.6.4.2.aar",
+    //     )
+    // )
 }
