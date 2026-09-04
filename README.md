@@ -14,14 +14,12 @@
 
 ## 依赖
 
-仓库至少包含 Google、Maven Central。优量汇 / 穿山甲 vendor 可能还需要公司 Nexus 或穿山甲仓库：
+仓库至少包含 Google、Maven Central。优量汇 / 穿山甲 vendor 
 
 ```kotlin
 repositories {
     google()
     mavenCentral()
-    maven("https://nexus.hupu.io/repository/hupu-android-public/")
-    maven("https://artifact.bytedance.com/repository/pangle")
 }
 ```
 
