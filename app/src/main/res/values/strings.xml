@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Lamps Android SDK Demo</string>
+    <string name="open_lamps_sdk_tools">打开 SDK 工具</string>
+    <string name="navigate_game_center">跳转游戏中心</string>
+    <string name="game_id_hint">请输入 gameId</string>
+    <string name="navigate_game">跳转游戏</string>
+    <string name="get_game_center_fragment">TabLayout 演示</string>
+</resources>
