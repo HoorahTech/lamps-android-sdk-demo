@@ -42,8 +42,8 @@ class DemoApplication : Application() {
 
     companion object {
         const val TAG = "LampsDemo"
-        const val DEMO_APP_ID = "10001"
-        const val DEMO_OAID = "demo-oaid-from-media"
+        const val DEMO_APP_ID = "fyei9kd1wt1c"
+        const val DEMO_OAID = "af417ed4dc21da66b186505e4b63723ffa80dfd579cf0c657d1cd6137aa496ef"
 
         @Volatile
         var lastStartError: String? = null
