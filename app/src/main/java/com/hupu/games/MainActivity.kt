@@ -1,17 +1,23 @@
-package com.lamps.sdk.demo
+package com.hupu.games
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.activity.ComponentActivity
+import com.journeyapps.barcodescanner.ScanContract
+import com.journeyapps.barcodescanner.ScanOptions
 import com.lamps.sdk.LampsSdk
 
-class MainActivity : Activity() {
+class MainActivity : ComponentActivity() {
 
     private lateinit var statusText: TextView
     private val onSdkStatusChanged = { refreshStatus() }
+    private val scanLauncher = registerForActivityResult(ScanContract()) { result ->
+        val contents = result.contents ?: return@registerForActivityResult
+        DemoSchemaDispatcher.dispatch(this, contents)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,6 +25,10 @@ class MainActivity : Activity() {
 
         statusText = findViewById(R.id.sdkStatusText)
         SdkToolsBinder.bind(this, findViewById(R.id.openSdkToolsButton))
+
+        findViewById<Button>(R.id.scanSchemaButton).setOnClickListener {
+            scanLauncher.launch(scanOptions())
+        }
 
         findViewById<Button>(R.id.navigateGameCenterButton).setOnClickListener {
             LampsSdk.navigateToGameCenter(this)
@@ -32,6 +42,31 @@ class MainActivity : Activity() {
         findViewById<Button>(R.id.getGameCenterFragmentButton).setOnClickListener {
             startActivity(Intent(this, DemoTabActivity::class.java))
         }
+
+        if (savedInstanceState == null) {
+            dispatchViewIntent(intent)
+        }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        dispatchViewIntent(intent)
+    }
+
+    private fun scanOptions(): ScanOptions {
+        return ScanOptions().apply {
+            setDesiredBarcodeFormats(ScanOptions.QR_CODE)
+            setPrompt(getString(R.string.scan_schema_prompt))
+            setBeepEnabled(false)
+            setOrientationLocked(true)
+        }
+    }
+
+    private fun dispatchViewIntent(intent: Intent?) {
+        if (intent?.action != Intent.ACTION_VIEW) return
+        val raw = intent.dataString ?: return
+        DemoSchemaDispatcher.dispatch(this, raw)
     }
 
     override fun onStart() {

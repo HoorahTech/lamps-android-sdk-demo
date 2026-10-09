@@ -5,4 +5,10 @@
     <string name="game_id_hint">请输入 gameId</string>
     <string name="navigate_game">跳转游戏</string>
     <string name="get_game_center_fragment">TabLayout 演示</string>
+    <string name="scan_schema">扫码打开</string>
+    <string name="scan_schema_prompt">扫描 schema 二维码</string>
+    <string name="schema_empty">扫码内容为空</string>
+    <string name="schema_unrecognized">无法识别的链接</string>
+    <string name="schema_unsupported">暂不支持该链接</string>
+    <string name="schema_game_id_empty">gameId 为空</string>
 </resources>

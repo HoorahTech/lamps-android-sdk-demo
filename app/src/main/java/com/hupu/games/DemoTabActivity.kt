@@ -1,4 +1,4 @@
-package com.lamps.sdk.demo
+package com.hupu.games
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

@@ -1,4 +1,4 @@
-package com.lamps.sdk.demo
+package com.hupu.games
 
 import android.app.Application
 import android.util.Log
@@ -42,7 +42,7 @@ class DemoApplication : Application() {
 
     companion object {
         const val TAG = "LampsDemo"
-        const val DEMO_APP_ID = ""
+        const val DEMO_APP_ID = "10001"
         const val DEMO_OAID = ""
 
         @Volatile

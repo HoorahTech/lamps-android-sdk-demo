@@ -1,4 +1,4 @@
-package com.lamps.sdk.demo
+package com.hupu.games
 
 import android.app.Activity
 import android.widget.Button
