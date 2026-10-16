@@ -9,7 +9,7 @@
 - `sdk-tools`：仅 Debug 调试工具，Release 不会打进包
 
 工程名：`lamps-android-sdk-demo`  
-包名：`com.hupu.games`  
+包名：`com.hoorah.rating`  
 当前远程版本：`1.0.0`
 
 ## 依赖
@@ -63,7 +63,7 @@ LampsSdk.startAsync(object : InitCallback {
 })
 ```
 
-Demo 默认 `appId=10001`，并打开穿山甲、优量汇、汇川初始化。业务接入时改成自己的 `appId`，并换成真实 OAID。
+Demo 默认 `appId=g1e6fs9run7k`，并打开穿山甲、优量汇、汇川初始化。业务接入时改成自己的 `appId`，并换成真实 OAID。
 
 ## Demo 能力
 

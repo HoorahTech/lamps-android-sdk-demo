@@ -42,7 +42,7 @@ class DemoApplication : Application() {
 
     companion object {
         const val TAG = "LampsDemo"
-        const val DEMO_APP_ID = "10001"
+        const val DEMO_APP_ID = "g1e6fs9run7k"
         const val DEMO_OAID = ""
 
         @Volatile

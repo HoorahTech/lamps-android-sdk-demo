@@ -8,16 +8,39 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.hupu.games"
+        applicationId = "com.hoorah.rating"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
         versionName = "1.0.2"
     }
 
+    signingConfigs {
+        create("config") {
+            storeFile = file("hoorah_news.keystore")
+            storePassword = "cmhaha123"
+            keyAlias = "hoorah"
+            keyPassword = "cmhaha123"
+            enableV1Signing = true
+            enableV2Signing = true
+        }
+        getByName("debug") {
+            storeFile = file("hoorah_news.keystore")
+            storePassword = "cmhaha123"
+            keyAlias = "hoorah"
+            keyPassword = "cmhaha123"
+            enableV1Signing = true
+            enableV2Signing = true
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
+            signingConfig = signingConfigs.getByName("config")
+        }
+        debug {
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
 
