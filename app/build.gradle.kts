@@ -1,3 +1,7 @@
+import com.android.build.gradle.internal.api.BaseVariantOutputImpl
+import java.text.SimpleDateFormat
+import java.util.Date
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -12,7 +16,7 @@ android {
         minSdk = 24
         targetSdk = 34
         versionCode = 1
-        versionName = "1.0.2"
+        versionName = "1.0.3"
     }
 
     signingConfigs {
@@ -51,6 +55,15 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+
+    applicationVariants.configureEach {
+        if (buildType.name != "release") return@configureEach
+        val buildDate = SimpleDateFormat("yyyyMMdd").format(Date())
+        outputs.configureEach {
+            (this as BaseVariantOutputImpl).outputFileName =
+                "lamp-demo-${buildType.name}-$versionName-$buildDate.apk"
+        }
     }
 }
 
